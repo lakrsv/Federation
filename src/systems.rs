@@ -1,5 +1,22 @@
-use bevy::{ecs::{system::{Commands, Query, ResMut, Res}, query::With}, sprite::{MaterialMesh2dBundle, ColorMaterial, SpriteBundle}, render::{mesh::{shape, Mesh}, color::Color}, asset::{Assets, AssetServer}, transform::components::Transform, math::Vec3, prelude::default, core_pipeline::core_2d::Camera2dBundle, time::Time, log};
 use bevy::prelude::*;
+use bevy::{
+    asset::{AssetServer, Assets},
+    core_pipeline::core_2d::Camera2dBundle,
+    ecs::{
+        query::With,
+        system::{Commands, Query, Res, ResMut},
+    },
+    log,
+    math::Vec3,
+    prelude::default,
+    render::{
+        color::Color,
+        mesh::{shape, Mesh},
+    },
+    sprite::{ColorMaterial, MaterialMesh2dBundle, SpriteBundle},
+    time::Time,
+    transform::components::Transform,
+};
 
 use crate::components::CelestialBody;
 
@@ -9,15 +26,17 @@ pub fn setup_viewport(mut commands: Commands) {
 
 pub fn setup_planets(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
-        CelestialBody{radius: 25.0, angular_velocity: -0.125}, 
-        SpriteBundle{
-        texture: asset_server.load("planet_1.png"),
-        transform: Transform::from_xyz(100., 0., 0.),
-        ..default()
-    },
-));
+        CelestialBody {
+            radius: 25.0,
+            angular_velocity: -0.125,
+        },
+        SpriteBundle {
+            texture: asset_server.load("planet_1.png"),
+            transform: Transform::from_xyz(100., 0., 0.),
+            ..default()
+        },
+    ));
 }
-
 
 pub fn move_planets(time: Res<Time>, mut planets: Query<(&CelestialBody, &mut Transform)>) {
     for ((celestial_body, mut transform)) in &mut planets {
