@@ -116,8 +116,6 @@ pub fn move_player(
         movement.x += 1.;
     }
 
-    //let mut moveY = Vec2::new(0., movement.y * player.speed);
-
     let movement_direction = transform.rotation * Vec3::Y;
     external_force.force =
         movement.y * player.speed * Vec2::new(movement_direction.x, movement_direction.y);
