@@ -1,19 +1,10 @@
-use bevy::prelude::*;
+
 use bevy::{
-    asset::{AssetServer, Assets},
+    asset::AssetServer,
     core_pipeline::core_2d::Camera2dBundle,
-    ecs::{
-        query::With,
-        system::{Commands, Query, Res, ResMut},
-    },
-    log,
-    math::Vec3,
+    ecs::system::{Commands, Query, Res},
     prelude::default,
-    render::{
-        color::Color,
-        mesh::{shape, Mesh},
-    },
-    sprite::{ColorMaterial, MaterialMesh2dBundle, SpriteBundle},
+    sprite::SpriteBundle,
     time::Time,
     transform::components::Transform,
 };
@@ -32,7 +23,7 @@ pub fn setup_planets(mut commands: Commands, asset_server: Res<AssetServer>) {
         },
         SpriteBundle {
             texture: asset_server.load("planet_1.png"),
-            transform: Transform::from_xyz(100., 0., 0.),
+            transform: Transform::from_xyz(0., 0., 0.),
             ..default()
         },
     ));
