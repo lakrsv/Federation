@@ -9,19 +9,25 @@ use bevy::{
     log::info,
     math::{Vec2, Vec3},
     prelude::default,
-    render::camera::{OrthographicProjection, Camera},
+    render::camera::{Camera, OrthographicProjection},
     sprite::SpriteBundle,
     time::Time,
     transform::components::Transform,
 };
-use bevy_rapier2d::{dynamics::{RigidBody, Velocity, ExternalForce, GravityScale, LockedAxes}, geometry::Collider};
+use bevy_rapier2d::{
+    dynamics::{ExternalForce, GravityScale, LockedAxes, RigidBody, Velocity},
+    geometry::Collider,
+};
 
 use crate::components::{CelestialBody, PlayerCamera, PlayerVehicle};
 
 pub fn setup_player(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((Camera2dBundle::default(), PlayerCamera()));
     commands.spawn((
-        PlayerVehicle { speed: 16., rotation_speed: 4. },
+        PlayerVehicle {
+            speed: 16.,
+            rotation_speed: 4.,
+        },
         SpriteBundle {
             texture: asset_server.load("ship.png"),
             transform: Transform::from_xyz(0., 0., 0.).with_scale(Vec3::new(
@@ -38,7 +44,7 @@ pub fn setup_player(mut commands: Commands, asset_server: Res<AssetServer>) {
             force: Vec2::new(0., 0.),
             torque: 0.,
         },
-        Collider::ball(512./4.),
+        Collider::ball(512. / 4.),
     ));
 }
 
@@ -114,11 +120,15 @@ pub fn move_player(
     //let mut moveY = Vec2::new(0., movement.y * player.speed);
 
     let movement_direction = transform.rotation * Vec3::Y;
-    external_force.force = movement.y * player.speed * Vec2::new(movement_direction.x, movement_direction.y);
+    external_force.force =
+        movement.y * player.speed * Vec2::new(movement_direction.x, movement_direction.y);
     transform.rotate_z(-movement.x * player.rotation_speed * time.delta_seconds());
 }
 
-pub fn camera_follow(player: Query<(&PlayerVehicle, &Transform)>, mut camera: Query<&mut Transform, (With<Camera>, Without<PlayerVehicle>)>) {
+pub fn camera_follow(
+    player: Query<(&PlayerVehicle, &Transform)>,
+    mut camera: Query<&mut Transform, (With<Camera>, Without<PlayerVehicle>)>,
+) {
     let player = player.single();
     let mut camera_transform = camera.single_mut();
 

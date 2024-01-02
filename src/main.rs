@@ -15,7 +15,10 @@ fn main() {
         .add_plugins(RapierDebugRenderPlugin::default())
         // .insert_resource(WinitSettings::desktop_app())
         .add_systems(Startup, (setup_player, setup_planets))
-        .add_systems(Update, (rotate_planets, zoom_camera, move_player, camera_follow))
+        .add_systems(
+            Update,
+            (rotate_planets, zoom_camera, move_player, camera_follow),
+        )
         // .add_systems(Update, greet_people)
         .run();
 }
