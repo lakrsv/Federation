@@ -1,5 +1,9 @@
 use bevy::prelude::*;
 
+use bevy_rapier2d::{
+    plugin::{NoUserData, RapierPhysicsPlugin},
+    render::RapierDebugRenderPlugin,
+};
 use systems::*;
 mod components;
 mod systems;
@@ -7,9 +11,11 @@ mod systems;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
+        .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(128.0))
+        .add_plugins(RapierDebugRenderPlugin::default())
         // .insert_resource(WinitSettings::desktop_app())
-        .add_systems(Startup, (setup_viewport, setup_planets))
-        .add_systems(Update, move_planets)
+        .add_systems(Startup, (setup_player, setup_planets))
+        .add_systems(Update, (rotate_planets, zoom_camera, move_player, camera_follow))
         // .add_systems(Update, greet_people)
         .run();
 }
