@@ -6,7 +6,6 @@ use bevy::{
         system::{Commands, Query, Res},
     },
     input::{keyboard::KeyCode, Input},
-    log::info,
     math::{Vec2, Vec3},
     prelude::default,
     render::camera::{Camera, OrthographicProjection},
@@ -15,7 +14,7 @@ use bevy::{
     transform::components::Transform,
 };
 use bevy_rapier2d::{
-    dynamics::{ExternalForce, GravityScale, LockedAxes, RigidBody, Velocity},
+    dynamics::{ExternalForce, GravityScale, LockedAxes, RigidBody},
     geometry::Collider,
 };
 
