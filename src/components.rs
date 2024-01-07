@@ -4,16 +4,14 @@ use bevy::ecs::component::Component;
 pub struct CelestialBody {
     pub radius: f32,
     pub angular_velocity: f32,
-    pub mass: f32
+    pub mass: f32,
 }
 
 #[derive(Component)]
-pub struct OrbitParent {
-}
+pub struct OrbitParent {}
 
 #[derive(Component)]
-pub struct OrbitChild {
-}
+pub struct OrbitChild {}
 
 #[derive(Component)]
 pub struct PlayerCamera();

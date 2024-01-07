@@ -17,7 +17,14 @@ fn main() {
         .add_systems(PostStartup, (setup_player))
         .add_systems(
             Update,
-            (rotate_planets, zoom_camera, move_player, camera_follow, orbit_objects, draw_player_orbit),
+            (
+                rotate_planets,
+                zoom_camera,
+                move_player,
+                camera_follow,
+                orbit_objects,
+                draw_player_orbit,
+            ),
         )
         .run();
 }
