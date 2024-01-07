@@ -13,10 +13,11 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(128.0))
         .add_plugins(RapierDebugRenderPlugin::default())
-        .add_systems(Startup, (setup_player, setup_planets))
+        .add_systems(Startup, (setup_home_planets))
+        .add_systems(PostStartup, (setup_player))
         .add_systems(
             Update,
-            (rotate_planets, zoom_camera, move_player, camera_follow),
+            (rotate_planets, zoom_camera, move_player, camera_follow, orbit_objects, draw_player_orbit),
         )
         .run();
 }
