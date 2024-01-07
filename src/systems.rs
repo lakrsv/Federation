@@ -3,13 +3,12 @@ use bevy::{
     core_pipeline::core_2d::Camera2dBundle,
     ecs::{
         entity::Entity,
-        query::{Added, With, Without},
+        query::{With, Without},
         system::{Commands, Query, Res},
-        world::World,
     },
     gizmos::gizmos::Gizmos,
     input::{keyboard::KeyCode, Input},
-    math::{vec3, Vec2, Vec3},
+    math::{Vec2, Vec3},
     prelude::default,
     render::{
         camera::{Camera, OrthographicProjection},
@@ -31,7 +30,6 @@ use crate::components::{
 pub fn setup_player(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
-    home_planet_query: Query<Entity, With<TeamRedHomePlanet>>,
 ) {
     commands.spawn((Camera2dBundle::default(), PlayerCamera()));
     commands.spawn((
@@ -246,5 +244,5 @@ fn calculate_gravity(
     }
     let move_direction = (target_position - object_position).normalize();
     let force = (G * object_mass * target_mass) / distance;
-    return Vec2::new(move_direction.x, move_direction.y) * force;
+    Vec2::new(move_direction.x, move_direction.y) * force
 }
